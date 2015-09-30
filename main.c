@@ -5,7 +5,20 @@
 #endif
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+
 #define TAILLE_MAX 1000 // Tableau de taille 1000
+
+int nb_occ( char *T,char b)
+{
+ unsigned int i;
+ int nb=0;
+ for(i=0 ;i<strlen(T);i++)
+    if(T[i]==b) 
+      nb++;
+ //printf("%s : %d\n",T,nb);
+ return nb;
+}
 
 int main(int argc, char *argv[])
 {
@@ -19,19 +32,35 @@ int main(int argc, char *argv[])
 
   file = fopen("Configuration.txt", "r");
 
-
+  int cmp_piece = 0;
   if (file != NULL)
   {
     int i=1;
+    int nbLine=0, nbCol=0;
     while (fgets(chaine, TAILLE_MAX, file) != NULL)
     {
   
       printf("%d ligne\n", i);
-      printf("%s", chaine);
+      printf("%s\n", chaine);
       i++;
+
+      if(strcmp(chaine,"\n"))
+      {
+        nbLine++;
+        nbCol = nb_occ(chaine,'#');
+      }
+      if(!strcmp(chaine,"\n"))
+      {
+        cmp_piece++; 
+        printf("ligne vide, j'ai fini une piece et je commence une nouvelle\n");
+        printf("la taille de piece que j'ai lu est (%d, %d)\n",nbLine,nbCol);
+      }  
+      
       // On lit et on écrit dans le fichier
       // ...
     }
+    cmp_piece++;
+    printf("j'ai lu %d pieces\n",cmp_piece);
     fclose(file);
   }
   else{
@@ -49,6 +78,7 @@ int main(int argc, char *argv[])
 
 
    screen = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+
 
    if (screen == NULL){
 
