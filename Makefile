@@ -47,7 +47,7 @@ SRCS = main.c sprite.c
 OBJS = $(SRCS:.c=.o)
 
 # define the executable file 
-MAIN = football
+MAIN = pentomino
 
 #
 # The following part of the makefile is generic; it can be used to 
@@ -58,7 +58,7 @@ MAIN = football
 .PHONY: depend clean
 
 all:  $(MAIN)
-	@echo  "Everything has been compiled, w00t!"
+	@echo  "It works !"
 
 $(MAIN): $(OBJS) 
 	$(CC) $(OBJS) $(CFLAGS) $(WARNINGS) $(INCLUDES) -o $(MAIN) $(LFLAGS) $(LIBS)

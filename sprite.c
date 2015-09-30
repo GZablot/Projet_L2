@@ -14,7 +14,8 @@ void update_events(int condition)
 {
   SDL_Event event;
   int gameover;
-  while(!gameover){
+  while(!gameover)
+  {
     SDL_PollEvent(&event);
     switch (event.type) 
     {
@@ -27,14 +28,7 @@ void update_events(int condition)
           case SDLK_ESCAPE:
             gameover = 1;
             break;
-          /*case SDLK_RIGHT:
-            ballPosition.x--;
-            break;
-          case SDLK_LEFT:
-            ballPosition.x++;
-            break;*/
-
-
+          
         }                          
     }
   }

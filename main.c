@@ -5,17 +5,38 @@
 #endif
 #include <stdlib.h>
 #include <stdio.h>
+#define TAILLE_MAX 1000 // Tableau de taille 1000
 
 int main(int argc, char *argv[])
 {
-  SDL_Surface *screen = NULL, *background = NULL, *ball = NULL;
-  SDL_Rect backgroundPosition, ballPosition;
+  FILE* file = NULL;
+
+  SDL_Surface *screen = NULL;
+
   int gameover = 0;
 
-  backgroundPosition.x = 0;
-  backgroundPosition.y = 0;
-  ballPosition.x = 365 ;
-  ballPosition.y = 150;
+  char chaine[TAILLE_MAX] = "";
+
+  file = fopen("Configuration.txt", "r");
+
+
+  if (file != NULL)
+  {
+    int i=1;
+    while (fgets(chaine, TAILLE_MAX, file) != NULL)
+    {
+  
+      printf("%d ligne\n", i);
+      printf("%s", chaine);
+      i++;
+      // On lit et on écrit dans le fichier
+      // ...
+    }
+    fclose(file);
+  }
+  else{
+    printf("Impossible to open Configuration.txt");
+  }
 
    SDL_Init(SDL_INIT_VIDEO);
 
@@ -36,24 +57,19 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
 	}
 
-   SDL_WM_SetCaption("Football Game", NULL);
+   SDL_WM_SetCaption("Pentamino", NULL);
 
-   background = SDL_LoadBMP("background.bmp");
-   SDL_BlitSurface(background, NULL, screen, &backgroundPosition);
+   SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 255, 255));
 
    //SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 17, 206, 112));
 
-   ball = SDL_LoadBMP("ball.bmp");
-   SDL_SetColorKey(ball, SDL_SRCCOLORKEY, SDL_MapRGB(ball->format, 255, 255, 255));
-   SDL_BlitSurface(ball, NULL, screen, &ballPosition);
 
    SDL_Flip(screen);
    SDL_EnableKeyRepeat(10, 10);
 
    update_events(gameover);
 
-   SDL_FreeSurface(background);
-   SDL_FreeSurface(ball);
+
    SDL_Quit();
 
    return EXIT_SUCCESS;
