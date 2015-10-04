@@ -7,22 +7,26 @@
 #include <stdio.h>
 #include <string.h>
 
-#define TAILLE_MAX 1000 // Tableau de taille 1000
+#define TAILLE_MAX 1000 
 
 int nb_occ( char *T,char b)
 {
  unsigned int i;
- int nb=0;
- for(i=0 ;i<strlen(T);i++)
-    if(T[i]==b) 
+ int nb = 0;
+ for(i = 0 ; i < strlen(T); i++)
+    if(T[i] == b) 
       nb++;
- //printf("%s : %d\n",T,nb);
  return nb;
 }
 
+
+
+
+
+
 int main(int argc, char *argv[])
 {
-  FILE* file = NULL;
+  FILE* fichier = NULL;
 
   SDL_Surface *screen = NULL;
 
@@ -30,38 +34,45 @@ int main(int argc, char *argv[])
 
   char chaine[TAILLE_MAX] = "";
 
-  file = fopen("Configuration.txt", "r");
+  fichier = fopen("Configuration.txt", "r");
 
   int cmp_piece = 0;
-  if (file != NULL)
+  if (fichier != NULL)
   {
-    int i=1;
-    int nbLine=0, nbCol=0;
-    while (fgets(chaine, TAILLE_MAX, file) != NULL)
-    {
-  
-      printf("%d ligne\n", i);
-      printf("%s\n", chaine);
-      i++;
+    
+    int nbLine = 0, nbCol = 0, maxNbCol = 0;
 
-      if(strcmp(chaine,"\n"))
+    while (fgets(chaine, TAILLE_MAX, fichier) != NULL)
+    {
+    
+      
+      printf("%s\n", chaine);
+
+      if(strcmp(chaine,"\n")) // Compare si la ligne n'est pas vide
       {
         nbLine++;
         nbCol = nb_occ(chaine,'#');
+        if(nbCol > maxNbCol)
+        {
+          maxNbCol = nbCol;
+        }
       }
+
       if(!strcmp(chaine,"\n"))
       {
         cmp_piece++; 
         printf("ligne vide, j'ai fini une piece et je commence une nouvelle\n");
-        printf("la taille de piece que j'ai lu est (%d, %d)\n",nbLine,nbCol);
+        printf("la taille de piece que j'ai lu est (%d, %d)\n",nbLine,maxNbCol);
+        nbLine = 0;
+        maxNbCol = 0;
       }  
       
       // On lit et on écrit dans le fichier
       // ...
     }
-    cmp_piece++;
+    //cmp_piece++;
     printf("j'ai lu %d pieces\n",cmp_piece);
-    fclose(file);
+    fclose(fichier);
   }
   else{
     printf("Impossible to open Configuration.txt");
@@ -77,7 +88,7 @@ int main(int argc, char *argv[])
    }
 
 
-   screen = SDL_SetVideoMode(800, 600, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+   screen = SDL_SetVideoMode(1280, 720, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
 
 
    if (screen == NULL){

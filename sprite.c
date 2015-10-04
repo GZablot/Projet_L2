@@ -5,11 +5,6 @@
 #include <SDL/SDL.h>
 
 
-
-
-
-
-
 void update_events(int condition)
 {
   SDL_Event event;
@@ -33,3 +28,6 @@ void update_events(int condition)
     }
   }
 } 
+
+
+
