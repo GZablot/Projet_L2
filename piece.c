@@ -3,12 +3,8 @@
 #include "piece.h"
 #endif
 #include <SDL/SDL.h>
+#define TAILLE_CARRE 20
 
-
-/*void tabPieceStocke()
-{
-  
-}*/
 
 int *** alloc3D(int taille1,int taille2, int taille3)
 {
@@ -76,4 +72,18 @@ void afficherTab(int ***tab,int taille1,int taille2, int taille3)
       printf("\n");
     }
   }
+}
+
+void ChargePiece(void)
+{
+  SDL_Rect posCarreR;
+
+  posCarreR.x = 10;
+  posCarreR.y = 10;
+
+  SDL_Surface *carreR = NULL;
+
+  carreR = SDL_CreateRGBSurface(SDL_HWSURFACE, TAILLE_CARRE, TAILLE_CARRE, 0, 0, 0, 0);
+  SDL_FillRect(carreR, NULL, SDL_MapRGB(ecran->format, 255, 0, 0));
+  SDL_BlitSurface(carreR, NULL, ecran, &posCarreR);
 }
