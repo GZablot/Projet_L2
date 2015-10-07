@@ -11,32 +11,48 @@
 #include <stdio.h>
 #include <string.h>
 
- 
+#define TAILLE 20
 
 
 
 
 int main(int argc, char *argv[])
 {
-  
+  int c = compter_piece()-1;
+  int ***tab = alloc3D(c,5,5);
 
-  SDL_Surface *screen = NULL;
+  readFile(tab);
+  afficherTab(tab,c,5,5);
 
-  int gameover = 0;
+  SDL_Init(SDL_INIT_VIDEO);
 
-  readFile();
-
-   SDL_Init(SDL_INIT_VIDEO);
-
-   if (SDL_Init(SDL_INIT_VIDEO) == -1){
+  if (SDL_Init(SDL_INIT_VIDEO) == -1){
 
      fprintf(stderr, "Initialization Error of SDL : %s\n", SDL_GetError());
 
      exit(EXIT_FAILURE);
    }
 
+  SDL_Surface *screen = NULL;
+  screen = SDL_SetVideoMode(1280, 720, 32, SDL_HWSURFACE | SDL_DOUBLEBUF); 
+  SDL_Surface *carreR = NULL;
+  //carre de taille 20x20, remplir en rouge
+  SDL_Surface *carreB = NULL;
+  //carre de taille 20x20, remplir en blue
+  return EXIT_SUCCESS;
 
-   screen = SDL_SetVideoMode(1280, 720, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
+   = NULL;
+
+  int gameover = 0;
+
+  compter_piece();
+
+  
+
+   
+
+
+   
 
 
    if (screen == NULL){

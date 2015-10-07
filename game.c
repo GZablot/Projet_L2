@@ -46,17 +46,16 @@ int nb_occ( char *T,char b)
 
 
 
-void readFile(void)
+int compter_piece(void )
 {
   
   FILE* fichier = NULL;
   fichier = fopen("Configuration.txt", "r");
-
-  if (fichier != NULL)
-  {
   char chaine[TAILLE_MAX] = "";
   int nbLine = 0, nbCol = 0, maxNbCol = 0, cmp_piece = 0;
 
+  if (fichier != NULL)
+  {
     while (fgets(chaine, TAILLE_MAX, fichier) != NULL)
     {
     
@@ -94,7 +93,54 @@ void readFile(void)
   {
   	printf("Impossible to open Configuration.txt\n");
   }
+  return cmp_piece;
 }
 
+int readFile(int *** tableau)
+{
+  
+  FILE* fichier = NULL;
+  fichier = fopen("Configuration.txt", "r");
+  char chaine[TAILLE_MAX] = "";
+  int nbLine = 0, nbCol = 0, maxNbCol = 0, cmp_piece = 0;
 
+  if (fichier != NULL)
+  {
+    while (fgets(chaine, TAILLE_MAX, fichier) != NULL)
+    {
+    
+      if(cmp_piece>=1)
+      {
+        printf("==========> cmp_piece>=1 \n");
+        if(strcmp(chaine,"\n") && strlen(chaine)>0) // Compare si la ligne n'est pas vide
+        {
+          printf("==========> ma ligne n'est pas vide \n");
+          for(int i=0; i<(int)strlen(chaine);i++)
+          {
+            if(chaine[i] == '#')
+            {
+              tableau[cmp_piece-1][nbLine][i]=1;
+            }
+            if(chaine[i] == ' ')
+            {
+              tableau[cmp_piece-1][nbLine][i]=0;
+            }
+          }
+          nbLine++;
+        }
+      }
+      if(!strcmp(chaine,"\n"))
+        {
+          cmp_piece++; 
+          nbLine = 0;
+        }
+    }
+    fclose(fichier);
+  } 
+  else
+  {
+    printf("Impossible to open Configuration.txt\n");
+  }
+  return cmp_piece;
+}
 
