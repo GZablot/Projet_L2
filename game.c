@@ -7,7 +7,7 @@
 #define DEF_GAME 
 #include "game.h"
 #endif
-#define TAILLE_MAX 1000
+#define TAILLE_MAX 500
 
 void update_events(int condition)
 {
@@ -52,7 +52,7 @@ int compter_piece(void )
   FILE* fichier = NULL;
   fichier = fopen("Configuration.txt", "r");
   char chaine[TAILLE_MAX] = "";
-  int nbLine = 0, nbCol = 0, maxNbCol = 0, cmp_piece = 0;
+  int nbLigne = 0, nbCol = 0, maxNbCol = 0, cmp_piece = 0;
 
   if (fichier != NULL)
   {
@@ -64,7 +64,7 @@ int compter_piece(void )
 
       if(strcmp(chaine,"\n")) // Compare si la ligne n'est pas vide
       {
-        nbLine++;
+        nbLigne++;
         nbCol = nb_occ(chaine,'#');
         if(nbCol > maxNbCol)
         {
@@ -76,8 +76,8 @@ int compter_piece(void )
       {
         cmp_piece++; 
         printf("ligne vide, j'ai fini une piece et je commence une nouvelle\n");
-        printf("la taille de piece que j'ai lu est (%d, %d)\n",nbLine,maxNbCol);
-        nbLine = 0;
+        printf("la taille de piece que j'ai lu est (%d, %d)\n",nbLigne,maxNbCol);
+        nbLigne = 0;
         maxNbCol = 0;
       }  
       
@@ -91,7 +91,7 @@ int compter_piece(void )
   }	
   else
   {
-  	printf("Impossible to open Configuration.txt\n");
+  	printf("Impossible d'ouvrir Configuration.txt\n");
   }
   return cmp_piece;
 }
@@ -102,7 +102,7 @@ int readFile(int *** tableau)
   FILE* fichier = NULL;
   fichier = fopen("Configuration.txt", "r");
   char chaine[TAILLE_MAX] = "";
-  int nbLine = 0, nbCol = 0, maxNbCol = 0, cmp_piece = 0;
+  int nbLigne = 0, nbCol = 0, maxNbCol = 0, cmp_piece = 0;
 
   if (fichier != NULL)
   {
@@ -110,37 +110,115 @@ int readFile(int *** tableau)
     {
     
       if(cmp_piece>=1)
-      {
-        printf("==========> cmp_piece>=1 \n");
+      { 
         if(strcmp(chaine,"\n") && strlen(chaine)>0) // Compare si la ligne n'est pas vide
         {
-          printf("==========> ma ligne n'est pas vide \n");
-          for(int i=0; i<(int)strlen(chaine);i++)
+          for(unsigned int i=0; i<strlen(chaine);i++)
           {
             if(chaine[i] == '#')
             {
-              tableau[cmp_piece-1][nbLine][i]=1;
+              tableau[cmp_piece-1][nbLigne][i]=1;
             }
             if(chaine[i] == ' ')
             {
-              tableau[cmp_piece-1][nbLine][i]=0;
+              tableau[cmp_piece-1][nbLigne][i]=0;
             }
           }
-          nbLine++;
+          nbLigne++;
         }
       }
       if(!strcmp(chaine,"\n"))
         {
           cmp_piece++; 
-          nbLine = 0;
+          nbLigne = 0;
         }
     }
     fclose(fichier);
   } 
   else
   {
-    printf("Impossible to open Configuration.txt\n");
+    printf("Impossible d'ouvrir Configuration.txt\n");
   }
   return cmp_piece;
+}
+
+int maxNbCol(void)
+{
+  FILE* fichier = NULL;
+  fichier = fopen("Configuration.txt", "r");
+  char chaine[TAILLE_MAX] = "";
+  int nbCol = 0, maxNbCol = 0, cmp_piece = 0;
+
+  if (fichier != NULL)
+  {
+    while (fgets(chaine, TAILLE_MAX, fichier) != NULL)
+    {
+
+      if(strcmp(chaine,"\n") && cmp_piece > 0) 
+      {
+        nbCol = nb_occ(chaine,'#');
+        if(nbCol > maxNbCol)
+        {
+          maxNbCol = nbCol;
+        }
+      }
+
+      if(!strcmp(chaine,"\n"))
+      {
+        cmp_piece++; 
+      }  
+      
+    
+    }
+    
+    fclose(fichier);
+  } 
+  else
+  {
+    printf("Impossible d'ouvrir Configuration.txt\n");
+  }
+ 
+  return maxNbCol;
+}
+
+
+int maxNbLigne(void )
+{
+  
+  FILE* fichier = NULL;
+  fichier = fopen("Configuration.txt", "r");
+  char chaine[TAILLE_MAX] = "";
+  int nbLigne = 0, cmp_piece = 0, maxNbLigne = 0;
+
+  if (fichier != NULL)
+  {
+    while (fgets(chaine, TAILLE_MAX, fichier) != NULL)
+    {
+
+      if(strcmp(chaine,"\n") && cmp_piece > 0) 
+      {
+        nbLigne++;
+        if(nbLigne > maxNbLigne)
+        {
+          maxNbLigne = nbLigne;
+        }
+      }
+  
+      if(!strcmp(chaine,"\n"))
+      {
+        cmp_piece++; 
+        nbLigne = 0;
+      }  
+      
+  
+    } 
+    fclose(fichier);
+  } 
+  else
+  {
+    printf("Impossible d'ouvrir Configuration.txt\n");
+  }
+
+  return maxNbLigne;
 }
 
