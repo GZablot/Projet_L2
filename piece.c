@@ -102,7 +102,7 @@ void chargePiece(SDL_Surface *ecran, int ***tab,int taille1,int taille2, int tai
 
     }
     if(posCarreR.y >= 720 - ((maxNbLigne())*TAILLE_CARRE) ){
-      printf("dans le if posCarreR.y = %d\n",posCarreR.y);
+      //printf("dans le if posCarreR.y = %d\n",posCarreR.y);
       posCarreR.y = 10;
       posCarreR_x = posCarreR_x + (1 + maxNbCol())*TAILLE_CARRE;
 
@@ -113,7 +113,7 @@ void chargePiece(SDL_Surface *ecran, int ***tab,int taille1,int taille2, int tai
     }  
     for(j = 0; j < taille2; j++)
     {
-      printf("boucle for posCarreR.y = %d\n",posCarreR.y);
+      //printf("boucle for posCarreR.y = %d\n",posCarreR.y);
 
       posCarreR.y += TAILLE_CARRE;
       posCarreR.x = posCarreR_x;
@@ -129,8 +129,33 @@ void chargePiece(SDL_Surface *ecran, int ***tab,int taille1,int taille2, int tai
      
     }
   }
-
+  SDL_FreeSurface(carreR);
 }
+
+Piece* iniPiece(int taille)
+{
+  Piece* p = malloc(sizeof(Piece));
+  p->coord.x = 0;
+  p->coord.y = 0;
+  p->coord.h = 0;
+  p->coord.w = 0;
+
+  p->taille_carre = taille;
+
+  p->ligne = 0;
+
+  p->colonne
+
+  p->tab=NULL;
+
+  p->id = 0;
+
+  p->rotation = .0;
+  
+  return p;
+}
+
+
 
 
 void freeTab(int ***tab,int taille3,int taille2)

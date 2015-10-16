@@ -37,9 +37,6 @@ int main(int argc, char *argv[])
   }
 
   
-  SDL_Surface *carreB = NULL;
-  //carre de taille 20x20, remplir en blue
-  
 
   SDL_Surface *ecran = NULL;
   ecran = SDL_SetVideoMode(1280, 720, 32, SDL_HWSURFACE | SDL_DOUBLEBUF);
@@ -66,9 +63,10 @@ int main(int argc, char *argv[])
 
   update_events(gameover);
 
-  //SDL_FreeSurface(carreR);
+  
   freeTab(tab,maxNbCol(),maxNbLigne());
   SDL_Quit();
+
 
   return EXIT_SUCCESS;
 
