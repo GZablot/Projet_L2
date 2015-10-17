@@ -1,6 +1,6 @@
-#ifndef DEF_PIECE 
-#define DEF_PIECE 
-#include "piece.h"
+#ifndef DEF_LISTE_PIECE 
+#define DEF_LISTE_PIECE
+#include "liste_piece.h"
 #endif
 #ifndef DEF_GAME 
 #define DEF_GAME 
@@ -24,9 +24,13 @@ liste cons (Piece* x, liste L)
 }
 
 /* Accès */
-bool est_vide (liste L)
+int est_vide (liste L)
 {
-  return L == NULL ;
+   if(L == NULL){
+    return 1;
+   }else{
+    return 0;
+   } 
 }
 
 int tete (liste L)

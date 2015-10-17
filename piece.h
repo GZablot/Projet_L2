@@ -15,6 +15,8 @@ typedef struct Piece{
 
 int ***alloc3D(int taille1,int taille2, int taille3);
 void afficherTab(int ***tab,int taille1,int taille2, int taille3);
+int **allocation2D(int taille1, int taille2);
+void afficherTab2D(int **tab,int taille1,int taille2);
 void chargePiece(SDL_Surface *ecran, int ***tab,int taille1,int taille2, int taille3);
 void freeTab(int ***tab,int taille3,int taille2);
 Piece* iniPiece(int taille);

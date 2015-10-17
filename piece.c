@@ -17,18 +17,22 @@ int ***alloc3D(int taille1,int taille2, int taille3)
 
   tab = malloc(taille1 * sizeof(*tab));
 
-  if(tab == NULL)          //Pas de libération de mémoire à ce niveau
-
-    return (int ***)-1;          //Exemple de code d'erreur
+  if(tab == NULL){
+    printf("Erreur allocation3D\n");
+    return (int***)-1;
+  }        
+            
 
   for(i=0 ; i < taille1 ; i++)
   {
 
     tab[i] = malloc(taille2 * sizeof(**tab));
 
-    if( tab[i] == NULL) //Pensez à libérer la mémoire déjà allouée et fermer le programme.
-
-      return (int ***)-1;     //Exemple de code d'erreur
+    if( tab[i] == NULL){
+        printf("Erreur allocation3D\n");
+      return (int***)-1;    
+    }
+    
   }
 
   for(i=0 ; i < taille1 ; i++)
@@ -37,9 +41,11 @@ int ***alloc3D(int taille1,int taille2, int taille3)
     {
       tab[i][j] = malloc(taille3 * sizeof(***tab));
 
-      if(tab[i][j] == NULL)   //Pensez à libérer correctement la mémoire déjà allouée
-
-        return (int ***)-1;          
+      if(tab[i][j] == NULL){
+        printf("Erreur allocation3D\n");
+        return (int***)-1;      
+      }
+           
     }
 
   }
@@ -58,6 +64,50 @@ int ***alloc3D(int taille1,int taille2, int taille3)
 
 }
 
+int **allocation2D(int taille1, int taille2)
+{
+  int **tab;
+  int i,j;
+
+  tab = malloc(taille1 * sizeof(*tab));
+  if(tab == NULL){
+    printf("Erreur allocation2D\n");
+    return (int**)-1;
+  } 
+
+  for(i=0 ; i < taille1 ; i++)
+  {
+
+    tab[i] = malloc(taille2 * sizeof(**tab));
+
+    if( tab[i] == NULL){
+      printf("Erreur allocation2D\n");
+      return (int**)-1;    
+    }
+
+  }
+  for(i = 0;i < taille1; i++)
+  {
+    for(j = 0;j < taille2; j++)
+    {     
+      tab[i][j] = 0;   
+    }
+  }
+  return tab;
+}
+
+void afficherTab2D(int **tab,int taille1,int taille2)
+{
+  int i,j,k;
+  for(i = 0; i < taille1; i++)
+  {
+    for(j = 0; j < taille2; j++)
+    {
+      printf("%d ",tab[i][j]);
+    }
+    printf("\n");
+  }
+}
 
 void afficherTab(int ***tab,int taille1,int taille2, int taille3)
 {
@@ -144,9 +194,9 @@ Piece* iniPiece(int taille)
 
   p->ligne = 0;
 
-  p->colonne
+  p->colonne = 0;
 
-  p->tab=NULL;
+  p->tab = NULL;
 
   p->id = 0;
 
@@ -156,7 +206,10 @@ Piece* iniPiece(int taille)
 }
 
 
+/*void freeTab2D(int **tab,int taille 2)
+{
 
+}*/
 
 void freeTab(int ***tab,int taille3,int taille2)
 {

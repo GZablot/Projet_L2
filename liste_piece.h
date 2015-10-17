@@ -9,7 +9,7 @@ typedef struct Liste
 
 liste l_vide () ;
 liste cons (Piece* x, liste L) ;
-bool est_vide (liste L) ;
+int est_vide (liste L) ;
 int tete (liste L) ;
 liste reste (liste L) ;
 

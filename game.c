@@ -7,6 +7,10 @@
 #define DEF_GAME 
 #include "game.h"
 #endif
+#ifndef DEF_LISTE_PIECE 
+#define DEF_LISTE_PIECE
+#include "liste_piece.h"
+#endif
 #define TAILLE_MAX 500
 
 void update_events(int condition)
@@ -81,10 +85,8 @@ int compter_piece(void )
         maxNbCol = 0;
       }  
       
-      // On lit et on écrit dans le fichier
-      // ...
+      
     }
-    //cmp_piece++;
     printf("j'ai lu %d pieces\n",cmp_piece);
     
     fclose(fichier);
@@ -96,7 +98,7 @@ int compter_piece(void )
   return cmp_piece;
 }
 
-int readFile(int ***tableau)
+int lecture_fichier_tab3D(int ***tableau)
 {
   
   FILE* fichier = NULL;
@@ -111,7 +113,7 @@ int readFile(int ***tableau)
     
       if(cmp_piece>=1)
       { 
-        if(strcmp(chaine,"\n") && strlen(chaine)>0) // Compare si la ligne n'est pas vide
+        if(strcmp(chaine,"\n") && strlen(chaine)>0) 
         {
           for(unsigned int i=0; i<strlen(chaine);i++)
           {
@@ -142,7 +144,7 @@ int readFile(int ***tableau)
   return cmp_piece;
 }
 
-int readFile(Liste l)
+int lecture_fichier_tab2D(liste l)
 {
   FILE* fichier = NULL;
   fichier = fopen("Configuration.txt", "r");
@@ -153,14 +155,14 @@ int readFile(Liste l)
   {
     while (fgets(chaine, TAILLE_MAX, fichier) != NULL)
     {
-      if(cmp_piece>=1)
+      if(cmp_piece >= 1)
       { 
         Piece* p = iniPiece(20);
-        p->id = cmp_piece-1; //cmp_piece
-        int taille_lig=5, taille_col=5;
+        p->id = cmp_piece-1; 
+        int taille_lig = 5, taille_col=5;
         p->tab = allocation2D(taille_lig,taille_col);
         
-        if(strcmp(chaine,"\n") && strlen(chaine)>0) // Compare si la ligne n'est pas vide
+        if(strcmp(chaine,"\n") && strlen(chaine)>0) 
         {
           for(unsigned int i=0; i<strlen(chaine);i++)
           {
