@@ -1,15 +1,6 @@
-#ifndef DEF_LISTE_PIECE 
-#define DEF_LISTE_PIECE
 #include "liste_piece.h"
-#endif
-#ifndef DEF_GAME 
-#define DEF_GAME 
-#include "game.h"
-#endif
-#include <SDL/SDL.h>
 
-
-liste l_vide ()
+liste l_vide (void)
 {
   return NULL ;
 }
@@ -33,7 +24,7 @@ int est_vide (liste L)
    } 
 }
 
-int tete (liste L)
+Piece* tete (liste L)
 {
   if (est_vide (L))
     {
@@ -89,18 +80,20 @@ unsigned int longueurI (liste L)
   return lg ;
 }
 
-void afficher_liste (liste L)
+/*void afficher_liste (liste L)
 {
-  printf ("(") ;
+  int i = 0;
+  printf ("Piece %d ",i) ;
   while (!est_vide (L))
     {
-      printf ("%d%s",
-	      prem (L),
-	      (est_vide (reste(L)) ? "" : " ")) ;
+      
+      printf ("%d%s",tete (L),(est_vide (reste(L)) ? "" : " ")) ;
       L = reste (L) ;
+      printf ("Piece %d ",i) ;
+      i++;
     }
-  printf (")") ;
-}
+  
+}*/
 
 liste renverser (liste L)
 {
@@ -109,7 +102,7 @@ liste renverser (liste L)
   M = L ;
   while (!est_vide(M))
     {
-      R = cons (prem(M), R) ;
+      R = cons (tete(M), R) ;
       M = reste (M) ;
     }
   return R ;
@@ -123,7 +116,7 @@ liste repeter_elements (liste L)
     {
       return l_vide () ;
     }
-  x = prem (L) ;
+  x = tete (L) ;
   return cons (x, cons (x, repeter_elements (reste(L)))) ;
 }
 
@@ -135,7 +128,7 @@ void repeter_elements_D (liste L)
     {
       return ;
     }
-  x = prem (L) ;
+  x = tete (L) ;
   ecrire_reste (cons (x, reste (L)), L) ;
   repeter_elements_D (reste (reste (L))) ;
 }

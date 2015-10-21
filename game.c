@@ -1,17 +1,4 @@
-#ifndef DEF_PIECE 
-#define DEF_PIECE 
-#include "piece.h"
-#endif
-#include <SDL/SDL.h>
-#ifndef DEF_GAME 
-#define DEF_GAME 
 #include "game.h"
-#endif
-#ifndef DEF_LISTE_PIECE 
-#define DEF_LISTE_PIECE
-#include "liste_piece.h"
-#endif
-#define TAILLE_MAX 500
 
 void update_events(int condition)
 {
@@ -36,19 +23,6 @@ void update_events(int condition)
     }
   }
 } 
-
-
-int nb_occ( char *T,char b)
-{
- unsigned int i;
- int nb = 0;
- for(i = 0 ; i < strlen(T); i++)
-    if(T[i] == b) 
-      nb++;
- return nb;
-}
-
-
 
 int compter_piece(void )
 {
@@ -144,12 +118,13 @@ int lecture_fichier_tab3D(int ***tableau)
   return cmp_piece;
 }
 
-int lecture_fichier_tab2D(liste l)
+void lecture_fichier_tab2D(liste l)
 {
   FILE* fichier = NULL;
   fichier = fopen("Configuration.txt", "r");
   char chaine[TAILLE_MAX] = "";
   int nbLigne = 0, nbCol = 0, maxNbCol = 0, cmp_piece = 0;
+  Piece* p = iniPiece(20);
 
   if (fichier != NULL)
   {
@@ -157,7 +132,7 @@ int lecture_fichier_tab2D(liste l)
     {
       if(cmp_piece >= 1)
       { 
-        Piece* p = iniPiece(20);
+        
         p->id = cmp_piece-1; 
         int taille_lig = 5, taille_col=5;
         p->tab = allocation2D(taille_lig,taille_col);
@@ -192,86 +167,6 @@ int lecture_fichier_tab2D(liste l)
   {
     printf("Impossible d'ouvrir Configuration.txt\n");
   }
-  return cmp_piece;
 }
 
-int maxNbCol(void)
-{
-  FILE* fichier = NULL;
-  fichier = fopen("Configuration.txt", "r");
-  char chaine[TAILLE_MAX] = "";
-  int nbCol = 0, maxNbCol = 0, cmp_piece = 0;
-
-  if (fichier != NULL)
-  {
-    while (fgets(chaine, TAILLE_MAX, fichier) != NULL)
-    {
-
-      if(strcmp(chaine,"\n") && cmp_piece > 0) 
-      {
-        nbCol = nb_occ(chaine,'#');
-        if(nbCol > maxNbCol)
-        {
-          maxNbCol = nbCol;
-        }
-      }
-
-      if(!strcmp(chaine,"\n"))
-      {
-        cmp_piece++; 
-      }  
-      
-    
-    }
-    
-    fclose(fichier);
-  } 
-  else
-  {
-    printf("Impossible d'ouvrir Configuration.txt\n");
-  }
- 
-  return maxNbCol;
-}
-
-
-int maxNbLigne(void )
-{
-  
-  FILE* fichier = NULL;
-  fichier = fopen("Configuration.txt", "r");
-  char chaine[TAILLE_MAX] = "";
-  int nbLigne = 0, cmp_piece = 0, maxNbLigne = 0;
-
-  if (fichier != NULL)
-  {
-    while (fgets(chaine, TAILLE_MAX, fichier) != NULL)
-    {
-
-      if(strcmp(chaine,"\n") && cmp_piece > 0) 
-      {
-        nbLigne++;
-        if(nbLigne > maxNbLigne)
-        {
-          maxNbLigne = nbLigne;
-        }
-      }
-  
-      if(!strcmp(chaine,"\n"))
-      {
-        cmp_piece++; 
-        nbLigne = 0;
-      }  
-      
-  
-    } 
-    fclose(fichier);
-  } 
-  else
-  {
-    printf("Impossible d'ouvrir Configuration.txt\n");
-  }
-
-  return maxNbLigne;
-}
 

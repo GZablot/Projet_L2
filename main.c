@@ -1,24 +1,10 @@
 #include <SDL/SDL.h>
-#ifndef DEF_PIECE 
-#define DEF_PIECE 
 #include "piece.h"
-#endif
-#ifndef DEF_GAME 
-#define DEF_GAME 
 #include "game.h"
-#endif
-#ifndef DEF_LISTE_PIECE 
-#define DEF_LISTE_PIECE
 #include "liste_piece.h"
-#endif
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
-
-
-
-
 
 int main(int argc, char *argv[])
 {

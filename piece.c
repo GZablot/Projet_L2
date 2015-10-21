@@ -1,13 +1,94 @@
-#ifndef DEF_PIECE 
-#define DEF_PIECE 
 #include "piece.h"
-#endif
-#ifndef DEF_GAME 
-#define DEF_GAME 
-#include "game.h"
-#endif
-#include <SDL/SDL.h>
-#define TAILLE_CARRE 20
+
+int maxNbCol(void)
+{
+  FILE* fichier = NULL;
+  fichier = fopen("Configuration.txt", "r");
+  char chaine[TAILLE_MAX] = "";
+  int nbCol = 0, maxNbCol = 0, cmp_piece = 0;
+
+  if (fichier != NULL)
+  {
+    while (fgets(chaine, TAILLE_MAX, fichier) != NULL)
+    {
+
+      if(strcmp(chaine,"\n") && cmp_piece > 0) 
+      {
+        nbCol = nb_occ(chaine,'#');
+        if(nbCol > maxNbCol)
+        {
+          maxNbCol = nbCol;
+        }
+      }
+
+      if(!strcmp(chaine,"\n"))
+      {
+        cmp_piece++; 
+      }  
+      
+    
+    }
+    
+    fclose(fichier);
+  } 
+  else
+  {
+    printf("Impossible d'ouvrir Configuration.txt\n");
+  }
+ 
+  return maxNbCol;
+}
+
+
+int maxNbLigne(void )
+{
+  
+  FILE* fichier = NULL;
+  fichier = fopen("Configuration.txt", "r");
+  char chaine[TAILLE_MAX] = "";
+  int nbLigne = 0, cmp_piece = 0, maxNbLigne = 0;
+
+  if (fichier != NULL)
+  {
+    while (fgets(chaine, TAILLE_MAX, fichier) != NULL)
+    {
+
+      if(strcmp(chaine,"\n") && cmp_piece > 0) 
+      {
+        nbLigne++;
+        if(nbLigne > maxNbLigne)
+        {
+          maxNbLigne = nbLigne;
+        }
+      }
+  
+      if(!strcmp(chaine,"\n"))
+      {
+        cmp_piece++; 
+        nbLigne = 0;
+      }  
+      
+  
+    } 
+    fclose(fichier);
+  } 
+  else
+  {
+    printf("Impossible d'ouvrir Configuration.txt\n");
+  }
+
+  return maxNbLigne;
+}
+
+int nb_occ( char *T,char b)
+{
+ unsigned int i;
+ int nb = 0;
+ for(i = 0 ; i < strlen(T); i++)
+    if(T[i] == b) 
+      nb++;
+ return nb;
+}
 
 
 int ***alloc3D(int taille1,int taille2, int taille3)
