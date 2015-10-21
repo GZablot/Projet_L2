@@ -1,6 +1,6 @@
 #include "liste_piece.h"
 
-liste l_vide (void)
+liste ConsVide (void)
 {
   return NULL ;
 }
@@ -98,7 +98,7 @@ unsigned int longueurI (liste L)
 liste renverser (liste L)
 {
   liste R, M ;
-  R = l_vide () ;
+  R = ConsVide () ;
   M = L ;
   while (!est_vide(M))
     {
@@ -114,7 +114,7 @@ liste repeter_elements (liste L)
   Piece* x ;
   if (est_vide (L))
     {
-      return l_vide () ;
+      return ConsVide () ;
     }
   x = tete (L) ;
   return cons (x, cons (x, repeter_elements (reste(L)))) ;

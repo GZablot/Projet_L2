@@ -11,7 +11,7 @@ typedef struct Liste
 };
 
 
-liste l_vide (void) ;
+liste ConsVide (void) ;
 liste cons (Piece* x, liste L) ;
 int est_vide (liste L) ;
 Piece* tete (liste L) ;

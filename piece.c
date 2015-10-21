@@ -179,7 +179,8 @@ int **allocation2D(int taille1, int taille2)
 
 void afficherTab2D(int **tab,int taille1,int taille2)
 {
-  int i,j,k;
+  int i,j;
+  printf("\n");
   for(i = 0; i < taille1; i++)
   {
     for(j = 0; j < taille2; j++)

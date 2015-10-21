@@ -7,7 +7,8 @@
 
 void update_events(int condition);
 int compter_piece(void );
-int lecture_fichier_tab3D(int ***tableau);
+void lecture_fichier_tab3D(int ***tableau);
 void lecture_fichier_tab2D(liste l);
+void lig_col_piece(Piece *p, liste l);
 
 #endif

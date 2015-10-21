@@ -14,7 +14,13 @@ int main(int argc, char *argv[])
   int gameover = 0;
 
   lecture_fichier_tab3D(tab);
-  afficherTab(tab,c,maxNbLigne(),maxNbCol());
+  //afficherTab(tab,c,maxNbLigne(),maxNbCol());
+
+
+  liste l = ConsVide();
+  lecture_fichier_tab2D(l);
+  
+
 
   SDL_Init(SDL_INIT_VIDEO);
 
