@@ -111,7 +111,64 @@ void lecture_fichier_tab3D(int ***tableau)
   }
 }
 
-void lecture_fichier_tab2D(liste l)
+void tab2D_piece(liste l)
+{
+  FILE* fichier = NULL;
+  fichier = fopen("Configuration.txt", "r");
+  char chaine[TAILLE_MAX] = "";
+  int nbLigne = 0, cmp_piece = 0;
+
+  if (fichier != NULL)
+  {
+
+    while (fgets(chaine, TAILLE_MAX, fichier) != NULL && !est_vide(l))
+    {
+      //printf("==============================>\n");
+      if(cmp_piece >= 1)
+      { 
+            
+        if(strcmp(chaine,"\n") && strlen(chaine)>0) 
+        {
+          for(unsigned int i=0; i<strlen(chaine);i++)
+          {
+            if(chaine[i] == '#')
+            {
+              l->premier->tab[nbLigne][i]=1;
+            }
+            if(chaine[i] == ' ')
+            {
+              l->premier->tab[nbLigne][i]=0;
+            }
+          }
+          nbLigne++;
+        }   
+      }
+ 
+
+      if(!strcmp(chaine,"\n"))
+      {
+        if(cmp_piece >= 1){
+          afficherTab2D(l->premier->tab,l->premier->ligne,l->premier->colonne);
+          l = l->suivant;
+        }
+
+      
+        l->premier->tab = allocation2D(l->premier->ligne,l->premier->colonne);
+        cmp_piece++; 
+        nbLigne = 0;
+
+      }
+
+
+    }
+    fclose(fichier);
+  }else{
+    printf("Impossible d'ouvrir Configuration.txt\n");
+  }
+}
+
+
+void lig_col_piece(liste l)
 {
   FILE* fichier = NULL;
   fichier = fopen("Configuration.txt", "r");
@@ -123,80 +180,36 @@ void lecture_fichier_tab2D(liste l)
   {
     while (fgets(chaine, TAILLE_MAX, fichier) != NULL)
     {
-      if(cmp_piece >= 1)
-      { 
-            
-        if(strcmp(chaine,"\n") && strlen(chaine)>0) 
+      if(cmp_piece >= 1){
+        if(strcmp(chaine,"\n") && strlen(chaine)>0)
         {
-          for(unsigned int i=0; i<strlen(chaine);i++)
-          {
-            if(chaine[i] == '#')
-            {
-              p->tab[nbLigne][i]=1;
-            }
-            if(chaine[i] == ' ')
-            {
-              p->tab[nbLigne][i]=0;
-            }
-          }
-          nbLigne++;
-        }   
-      }
- 
-
-      if(!strcmp(chaine,"\n"))
-        {
-          if(cmp_piece >= 1){
-            afficherTab2D(p->tab,5,5);
-          }
           
-          p = iniPiece(20);
-          cons(p,l);
-          p->id = cmp_piece;
-          int taille_lig = 5, taille_col = 5;
-          p->tab = allocation2D(taille_lig,taille_col);
-          cmp_piece++; 
-          nbLigne = 0;
-        }
-    }
-    fclose(fichier);
-  }else{
-    printf("Impossible d'ouvrir Configuration.txt\n");
-  }
-}
-
-
-void lig_col_piece(Piece *p, liste l)
-{
-  FILE* fichier = NULL;
-  fichier = fopen("Configuration.txt", "r");
-  char chaine[TAILLE_MAX] = "";
-  int nbLigne = 0, nbCol = 0, maxNbCol = 0, cmp_piece = 0;
-
-  if (fichier != NULL)
-  {
-    while (fgets(chaine, TAILLE_MAX, fichier) != NULL)
-    {
-
-      if(strcmp(chaine,"\n"))
-      {
-        nbLigne++;
-        nbCol = nb_occ(chaine,'#');
-        if(nbCol > maxNbCol)
-        {
-          maxNbCol = nbCol;
+            nbLigne++;
+            nbCol = nb_occ(chaine,'#') + nb_occ(chaine,' ') ;
+            if(nbCol > maxNbCol)
+            {
+              maxNbCol = nbCol;
+            }
+          
         }
       }
 
       if(!strcmp(chaine,"\n"))
       {
-        cmp_piece++;
-        p->ligne = nbLigne;
-        p->colonne = maxNbCol;
-        //modifier valeur des pieces dans la liste , là ça modifie qu'un piece pas dans la liste 
-        nbLigne = 0;
-        maxNbCol = 0;
+        if(cmp_piece >= 1){
+          p = iniPiece(20);
+          p->id = cmp_piece - 1;
+          printf("\np->id %d\n",p->id );
+          p->ligne = nbLigne;
+          p->colonne = maxNbCol;
+          printf("p->ligne %d\n",p->ligne );
+          printf("p->colonne %d\n",p->colonne );
+          cons(p,l);
+          nbLigne = 0;
+          maxNbCol = 0; 
+        }
 
+        cmp_piece++;
       }  
       
       

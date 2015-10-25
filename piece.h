@@ -1,7 +1,6 @@
 #ifndef PIECE_H 
 #define PIECE_H 
 
-//#include "game.h"
 #include <SDL/SDL.h>
 #define TAILLE_CARRE 20
 #define TAILLE_MAX 500

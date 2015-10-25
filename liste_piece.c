@@ -73,27 +73,23 @@ unsigned int longueurI (liste L)
   unsigned int lg ;
   lg = 0 ;
   while (!est_vide (L))
-    {
-      lg = lg + 1 ;
-      L = reste (L) ;
-    }
+  {
+    lg = lg + 1 ;
+    L = reste (L) ;
+  }
   return lg ;
 }
 
-/*void afficher_liste (liste L)
+void afficher_liste (liste L)
 {
-  int i = 0;
-  printf ("Piece %d ",i) ;
   while (!est_vide (L))
-    {
-      
-      printf ("%d%s",tete (L),(est_vide (reste(L)) ? "" : " ")) ;
-      L = reste (L) ;
-      printf ("Piece %d ",i) ;
-      i++;
-    }
+  {
+    printf ("Piece %d \n", L->premier->id) ;
+    //printf ("%d",tete (L),(est_vide (reste(L)) ? "" : " ")) ;
+    L = reste (L) ;
+  }
   
-}*/
+}
 
 liste renverser (liste L)
 {
@@ -101,10 +97,10 @@ liste renverser (liste L)
   R = ConsVide () ;
   M = L ;
   while (!est_vide(M))
-    {
-      R = cons (tete(M), R) ;
-      M = reste (M) ;
-    }
+  {
+    R = cons (tete(M), R) ;
+    M = reste (M) ;
+  }
   return R ;
 }
 
@@ -113,9 +109,9 @@ liste repeter_elements (liste L)
 {
   Piece* x ;
   if (est_vide (L))
-    {
-      return ConsVide () ;
-    }
+  {
+    return ConsVide () ;
+  }
   x = tete (L) ;
   return cons (x, cons (x, repeter_elements (reste(L)))) ;
 }
@@ -125,9 +121,9 @@ void repeter_elements_D (liste L)
 {
   Piece* x ;
   if (est_vide (L))
-    {
-      return ;
-    }
+  {
+    return ;
+  }
   x = tete (L) ;
   ecrire_reste (cons (x, reste (L)), L) ;
   repeter_elements_D (reste (reste (L))) ;
@@ -139,19 +135,19 @@ liste inserer_liste_D (unsigned int n, Piece* x, liste L)
   unsigned int i ;
   liste M ;
   if (n == 0 || est_vide(L))
-    {
-      printf ("Utilisation d'inserer_liste_D incorrecte\n") ;
-      exit(EXIT_FAILURE) ;
-    }
+  {
+    printf ("Utilisation d'inserer_liste_D incorrecte\n") ;
+    exit(EXIT_FAILURE) ;
+  }
   if (n == 1)
-    {
-      return cons (x, L) ;
-    }
+  {
+    return cons (x, L) ;
+  }
   M = L ;
   i = 1 ;
   while (!est_vide(reste(M)) && i < n - 1) {
-      M = reste(M) ;
-      i = i + 1 ;
+    M = reste(M) ;
+    i = i + 1 ;
   }
   ecrire_reste (cons(x, reste(M)), M) ;
   return L ;

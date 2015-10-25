@@ -18,7 +18,8 @@ int main(int argc, char *argv[])
 
 
   liste l = ConsVide();
-  lecture_fichier_tab2D(l);
+  lig_col_piece(l);
+  tab2D_piece(l);
   
 
 
@@ -41,7 +42,7 @@ int main(int argc, char *argv[])
 
     fprintf(stderr, "Impossible de charger le mode vidéo : %s\n", SDL_GetError());
 
-        exit(EXIT_FAILURE);
+    exit(EXIT_FAILURE);
   } 
 
   SDL_WM_SetCaption("Pentamino", NULL);

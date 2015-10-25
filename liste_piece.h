@@ -4,7 +4,7 @@
 #include "piece.h"
 
 typedef struct Liste *liste;
-typedef struct Liste
+struct Liste
 {
   Piece* premier ;
   liste suivant ;
@@ -24,7 +24,7 @@ liste inserer_liste_D (unsigned int n, Piece* x, liste L);
 void repeter_elements_D (liste L);
 liste repeter_elements (liste L);
 liste renverser (liste L);
-//void afficher_liste (liste L);
+void afficher_liste (liste L);
 unsigned int longueurI (liste L);
 unsigned int longueurR (liste L);
 
