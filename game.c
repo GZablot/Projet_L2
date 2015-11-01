@@ -121,12 +121,12 @@ void tab2D_piece(liste l)
   if (fichier != NULL)
   {
 
-    while (fgets(chaine, TAILLE_MAX, fichier) != NULL && !est_vide(l))
+    while (fgets(chaine, TAILLE_MAX, fichier) != NULL)
     {
-      //printf("==============================>\n");
+      
       if(cmp_piece >= 1)
       { 
-            
+        
         if(strcmp(chaine,"\n") && strlen(chaine)>0) 
         {
           for(unsigned int i=0; i<strlen(chaine);i++)
@@ -149,11 +149,13 @@ void tab2D_piece(liste l)
       {
         if(cmp_piece >= 1){
           afficherTab2D(l->premier->tab,l->premier->ligne,l->premier->colonne);
-          l = l->suivant;
+          l = reste(l);
         }
 
-      
+        printf("==============================>\n");
+        printf("l->premier->ligne %d\n", l->premier->ligne);
         l->premier->tab = allocation2D(l->premier->ligne,l->premier->colonne);
+
         cmp_piece++; 
         nbLigne = 0;
 
@@ -168,7 +170,7 @@ void tab2D_piece(liste l)
 }
 
 
-void lig_col_piece(liste l)
+liste lig_col_piece(liste l)
 {
   FILE* fichier = NULL;
   fichier = fopen("Configuration.txt", "r");
@@ -219,4 +221,5 @@ void lig_col_piece(liste l)
   }else{
     printf("Impossible d'ouvrir Configuration.txt\n");
   }
+  return l;
 }

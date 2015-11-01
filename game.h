@@ -9,6 +9,6 @@ void update_events(int condition);
 int compter_piece(void );
 void lecture_fichier_tab3D(int ***tableau);
 void tab2D_piece(liste l);
-void lig_col_piece(liste l);
+liste lig_col_piece(liste l);
 
 #endif

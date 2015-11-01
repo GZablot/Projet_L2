@@ -18,9 +18,9 @@ int main(int argc, char *argv[])
 
 
   liste l = ConsVide();
-  lig_col_piece(l);
-  tab2D_piece(l);
-  
+  l = lig_col_piece(l);
+  //tab2D_piece(l);
+
 
 
   SDL_Init(SDL_INIT_VIDEO);
