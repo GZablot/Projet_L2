@@ -19,7 +19,14 @@ int main(int argc, char *argv[])
 
   liste l = ConsVide();
   l = lig_col_piece(l);
-  //tab2D_piece(l);
+  if(est_vide(l)){
+    printf("liste vide\n" );
+  }else{
+    printf("liste non vide\n" );
+  }
+  l = renverser(l);
+  //afficher_liste(l);
+  l = tab2D_piece(l);
 
 
 

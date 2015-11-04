@@ -111,12 +111,13 @@ void lecture_fichier_tab3D(int ***tableau)
   }
 }
 
-void tab2D_piece(liste l)
+liste tab2D_piece(liste l)
 {
   FILE* fichier = NULL;
   fichier = fopen("Configuration.txt", "r");
   char chaine[TAILLE_MAX] = "";
   int nbLigne = 0, cmp_piece = 0;
+  liste l1 = l;
 
   if (fichier != NULL)
   {
@@ -133,11 +134,11 @@ void tab2D_piece(liste l)
           {
             if(chaine[i] == '#')
             {
-              l->premier->tab[nbLigne][i]=1;
+              l1->premier->tab[nbLigne][i]=1;
             }
             if(chaine[i] == ' ')
             {
-              l->premier->tab[nbLigne][i]=0;
+              l1->premier->tab[nbLigne][i]=0;
             }
           }
           nbLigne++;
@@ -147,14 +148,17 @@ void tab2D_piece(liste l)
 
       if(!strcmp(chaine,"\n"))
       {
-        if(cmp_piece >= 1){
-          afficherTab2D(l->premier->tab,l->premier->ligne,l->premier->colonne);
-          l = reste(l);
+        if(cmp_piece >= 1 ){
+          printf("Piece %d\n", l1->premier->id);
+          afficherTab2D(l1->premier->tab,l1->premier->ligne,l1->premier->colonne);
+          l1 = reste(l1);   
         }
-
-        printf("==============================>\n");
-        printf("l->premier->ligne %d\n", l->premier->ligne);
-        l->premier->tab = allocation2D(l->premier->ligne,l->premier->colonne);
+        if(!est_vide(l1)){
+          printf("l1->premier->ligne %d\n", l1->premier->ligne);
+          printf("l1->premier->colonne %d\n", l1->premier->colonne);
+          l1->premier->tab = allocation2D(l1->premier->ligne,l1->premier->colonne);
+        }
+        
 
         cmp_piece++; 
         nbLigne = 0;
@@ -167,6 +171,7 @@ void tab2D_piece(liste l)
   }else{
     printf("Impossible d'ouvrir Configuration.txt\n");
   }
+  return l;
 }
 
 
@@ -201,12 +206,12 @@ liste lig_col_piece(liste l)
         if(cmp_piece >= 1){
           p = iniPiece(20);
           p->id = cmp_piece - 1;
-          printf("\np->id %d\n",p->id );
+          //printf("\np->id %d\n",p->id );
           p->ligne = nbLigne;
           p->colonne = maxNbCol;
-          printf("p->ligne %d\n",p->ligne );
-          printf("p->colonne %d\n",p->colonne );
-          cons(p,l);
+          //printf("p->ligne %d\n",p->ligne );
+          //printf("p->colonne %d\n",p->colonne );
+          l = cons(p,l);
           nbLigne = 0;
           maxNbCol = 0; 
         }

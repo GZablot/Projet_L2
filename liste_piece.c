@@ -82,11 +82,14 @@ unsigned int longueurI (liste L)
 
 void afficher_liste (liste L)
 {
-  while (!est_vide (L))
+  liste L1;
+  L1 = L;
+  while (!est_vide (L1))
   {
-    printf ("Piece %d \n", L->premier->id) ;
-    //printf ("%d",tete (L),(est_vide (reste(L)) ? "" : " ")) ;
-    L = reste (L) ;
+    printf ("\n\nPiece %d ", L1->premier->id) ;
+    printf ("\nligne %d ", L1->premier->ligne) ;
+    printf ("\ncolonne %d ", L1->premier->colonne) ;
+    L1 = reste (L1) ;
   }
   
 }
