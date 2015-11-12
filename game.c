@@ -206,11 +206,8 @@ liste lig_col_piece(liste l)
         if(cmp_piece >= 1){
           p = iniPiece(20);
           p->id = cmp_piece - 1;
-          //printf("\np->id %d\n",p->id );
           p->ligne = nbLigne;
           p->colonne = maxNbCol;
-          //printf("p->ligne %d\n",p->ligne );
-          //printf("p->colonne %d\n",p->colonne );
           l = cons(p,l);
           nbLigne = 0;
           maxNbCol = 0; 
@@ -227,4 +224,55 @@ liste lig_col_piece(liste l)
     printf("Impossible d'ouvrir Configuration.txt\n");
   }
   return l;
+}
+
+void chargePiece(SDL_Surface* ecran, liste l){
+  liste l1 = l;
+  int i,j;
+  int coeff_pos_y = 1;
+  int coeff_pos_x = 5;
+  SDL_Surface *carreR = NULL;
+  
+  carreR = SDL_CreateRGBSurface(SDL_HWSURFACE, TAILLE_CARRE, TAILLE_CARRE, 32, 0, 0, 0, 0);
+  SDL_FillRect(carreR, NULL, SDL_MapRGB(ecran->format, 255, 0, 0));
+
+  while(!est_vide(l1)){
+  
+    if(l1->premier->id >= 1){
+      printf("piece %d\n",l1->premier->id);
+      l1->premier->coord.y += (coeff_pos_y*l1->premier->taille_carre);
+    }
+    if(l1->premier->coord.y >= 720 - (l1->premier->ligne * l1->premier->taille_carre)){
+      l1->premier->coord.y = 10;
+      l1->premier->coord.x = (coeff_pos_x* l1->premier->taille_carre);
+      coeff_pos_x += 5;
+      printf("l1->premier->coord.y %d\n",l1->premier->coord.y);
+      printf("l1->premier->coord.x %d\n",l1->premier->coord.x);
+    }
+
+    for( i = 0; i < l1->premier->ligne; i++)
+    {
+      //printf("i=%d\n",i);
+      //printf("l1->premier->coord.y %d\n",l1->premier->coord.y);
+      l1->premier->coord.y += l1->premier->taille_carre;
+      l1->premier->coord.x = 10;
+      if(l1->premier->coord.x >= 1280){
+        //reduire taille carré
+
+      } 
+      for(j = 0; j < l1->premier->colonne; j++)
+      {
+        //printf("j=%d\n",j);
+        //printf("l1->premier->coord.x %d\n",l1->premier->coord.x);
+        l1->premier->coord.x += l1->premier->taille_carre;
+        if(l1->premier->tab[i][j] == 1){
+          SDL_BlitSurface(carreR, NULL, ecran, &l1->premier->coord);
+        }     
+          
+      }
+    }
+    coeff_pos_y += 5;
+    l1 = reste(l1);
+  }
+  SDL_FreeSurface(carreR);  
 }

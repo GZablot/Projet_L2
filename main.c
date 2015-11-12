@@ -9,25 +9,18 @@
 int main(int argc, char *argv[])
 {
   
-  int c = compter_piece()-1;
+  /*int c = compter_piece()-1;
   int ***tab = alloc3D(c,maxNbLigne(),maxNbCol());
-  int gameover = 0;
 
-  lecture_fichier_tab3D(tab);
+  lecture_fichier_tab3D(tab);*/
   //afficherTab(tab,c,maxNbLigne(),maxNbCol());
 
-
+  int gameover = 0;
   liste l = ConsVide();
   l = lig_col_piece(l);
-  if(est_vide(l)){
-    printf("liste vide\n" );
-  }else{
-    printf("liste non vide\n" );
-  }
   l = renverser(l);
-  //afficher_liste(l);
   l = tab2D_piece(l);
-
+  
 
 
   SDL_Init(SDL_INIT_VIDEO);
@@ -58,8 +51,8 @@ int main(int argc, char *argv[])
 
    //SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 17, 206, 112));
 
-  chargePiece(ecran,tab,c,maxNbLigne(),maxNbCol());
-
+  //chargePiece(ecran,tab,c,maxNbLigne(),maxNbCol());
+  chargePiece(ecran,l);
 
 
   SDL_Flip(ecran);
@@ -68,7 +61,7 @@ int main(int argc, char *argv[])
   update_events(gameover);
 
   
-  freeTab(tab,maxNbCol(),maxNbLigne());
+  //freeTab(tab,maxNbCol(),maxNbLigne());
   SDL_Quit();
 
 
