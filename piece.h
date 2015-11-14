@@ -16,14 +16,10 @@ typedef struct piece{
 }Piece;
 
 
-int ***alloc3D(int taille1,int taille2, int taille3);
-void afficherTab(int ***tab,int taille1,int taille2, int taille3);
 int **allocation2D(int taille1, int taille2);
 void afficherTab2D(int **tab,int taille1,int taille2);
 void freeTab(int ***tab,int taille3,int taille2);
 Piece* iniPiece(int taille);
-int maxNbCol(void);
-int maxNbLigne(void );
 int nb_occ( char *T,char b);
 
 #endif

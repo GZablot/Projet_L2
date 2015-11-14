@@ -5,11 +5,11 @@
 #include "piece.h"
 #include <SDL/SDL.h>
 
-void update_events(int condition);
+void update_events(int condition, SDL_Surface *ecran, liste l);
 int compter_piece(void );
-void lecture_fichier_tab3D(int ***tableau);
 liste tab2D_piece(liste l);
 liste lig_col_piece(liste l);
 void chargePiece(SDL_Surface* ecran, liste l);
+void pos_souris_sur_piece(int pos_souris_x,int pos_souris_y, liste l);
 
 #endif

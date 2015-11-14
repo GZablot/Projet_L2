@@ -49,19 +49,17 @@ int main(int argc, char *argv[])
 
   SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 255, 255, 255));
 
-   //SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 17, 206, 112));
+  //SDL_FillRect(ecran, NULL, SDL_MapRGB(ecran->format, 17, 206, 112));
 
-  //chargePiece(ecran,tab,c,maxNbLigne(),maxNbCol());
   chargePiece(ecran,l);
 
 
-  SDL_Flip(ecran);
+  //SDL_Flip(ecran);
   SDL_EnableKeyRepeat(10, 10);
 
-  update_events(gameover);
+  update_events(gameover,ecran,l);
 
   
-  //freeTab(tab,maxNbCol(),maxNbLigne());
   SDL_Quit();
 
 
