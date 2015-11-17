@@ -20,11 +20,11 @@ void update_events(int condition, SDL_Surface *ecran, liste l)
             break;
           
         }
-      case SDL_MOUSEMOTION:
-        case SDL_MOUSEBUTTONUP:
-          pos_souris_sur_piece(event.motion.x,event.motion.y,l);
-          break;
-        break;                          
+      
+      case SDL_MOUSEBUTTONUP:
+        pos_souris_sur_piece(event.button.x,event.button.y,l);
+        break;
+                               
     }
 
     SDL_Flip(ecran);
